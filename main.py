@@ -57,7 +57,7 @@ def main():
             for shot in shots_groups:
                 if shot.has_overlap(asteroid):
                     shot.kill()
-                    asteroid.kill()
+                    asteroid.split()
 
         # Cap the frame rate at 60 FPS and calculate delta time
         dt = clock.tick(60) / 1000
