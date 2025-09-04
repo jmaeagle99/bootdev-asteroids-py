@@ -46,11 +46,18 @@ def main():
 
         pygame.display.flip()
 
-        # Check for collisions
+        # Check for player/asteroid collisions
         for asteroid in asteroids_group:
             if asteroid.has_overlap(player):
                 print("Game over!")
                 sys.exit()
+        
+        # Check for shot/asteroid collissions
+        for asteroid in asteroids_group:
+            for shot in shots_groups:
+                if shot.has_overlap(asteroid):
+                    shot.kill()
+                    asteroid.kill()
 
         # Cap the frame rate at 60 FPS and calculate delta time
         dt = clock.tick(60) / 1000
