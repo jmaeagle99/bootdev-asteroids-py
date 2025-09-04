@@ -1,3 +1,4 @@
+import sys
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
@@ -30,14 +31,22 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        # Update all objects
         updatable_group.update(dt)
 
         screen.fill("black")
 
+        # Draw all drawables
         for drawable in drawable_group:
             drawable.draw(screen)
 
         pygame.display.flip()
+
+        # Check for collisions
+        for asteroid in asteroids_group:
+            if asteroid.has_overlap(player):
+                print("Game over!")
+                sys.exit()
 
         # Cap the frame rate at 60 FPS and calculate delta time
         dt = clock.tick(60) / 1000
